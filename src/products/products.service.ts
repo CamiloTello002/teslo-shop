@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,8 @@ import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
+
+  private readonly logger = new Logger('ProductsService');
 
   constructor(
     @InjectRepository(Product)
