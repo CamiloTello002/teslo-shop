@@ -38,6 +38,6 @@ export class Product {
   })
   sizes: string[]
 
-  @Column('string')
+  @Column('text')
   gender: string;
 }
