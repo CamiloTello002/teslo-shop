@@ -9,4 +9,35 @@ export class Product {
     unique: true, // two products CAN'T have the same name
   })
   title: string;
+
+  @Column('integer', {
+    default: 0
+  })
+  price: number;
+
+  @Column({
+    type: 'text',
+    nullable: true
+  })
+  description: string;
+
+  @Column({
+    type: 'text',
+    unique: true
+  })
+  slug: string;
+
+  @Column({
+    type: 'integer',
+    default: 0
+  })
+  stock: number;
+
+  @Column('text', {
+    array: true
+  })
+  sizes: string[]
+
+  @Column('string')
+  gender: string;
 }
