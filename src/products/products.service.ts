@@ -17,6 +17,17 @@ export class ProductsService {
 
   async create(createProductDto: CreateProductDto) {
     try {
+      if (!createProductDto.slug) {
+        createProductDto.slug = createProductDto.title
+          .toLowerCase() // must be always lowercase
+          .replaceAll(' ', '_') // for every blank space we'll place an underscore
+          .replaceAll("'", '') // every apostrophe will be removed
+      } else {
+        createProductDto.slug = createProductDto.title
+          .toLowerCase() // must be always lowercase
+          .replaceAll(' ', '_') // for every blank space we'll place an underscore
+          .replaceAll("'", '') // every apostrophe will be removed
+      }
       const product = this.productRepository.create(createProductDto);
       await this.productRepository.save(product);
       return product;
