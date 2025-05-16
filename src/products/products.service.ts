@@ -51,9 +51,9 @@ export class ProductsService {
     } else {
       //product = await this.productRepository.findOneBy({ slug: term })
       const queryBuilder = this.productRepository.createQueryBuilder();
-      product = await queryBuilder.where('title ILIKE :title or slug =:slug', {
-        title: `%${term}%`,
-        slug: term
+      product = await queryBuilder.where('UPPER(title) =:title or slug =:slug', {
+        title: term.toUpperCase(),
+        slug: term.toLowerCase()
       }).getOne()
     }
 
