@@ -27,7 +27,13 @@ export class ProductsService {
 
   async findAll() {
     try {
-      const allProducts = this.productRepository.find();
+      const allProducts = await this.productRepository.find({
+        skip: 0,
+        take: 2,
+        order: {
+          'title': 'asc'
+        }
+      });
       return allProducts;
     } catch (error) {
       this.handleDBExceptions(error);
