@@ -24,7 +24,6 @@ export class ProductsService {
 
   async create(createProductDto: CreateProductDto) {
     try {
-      // array of images are extracted (string[])
       const { images = [], ...productDetails } = createProductDto;
       const product = this.productRepository.create({
         ...productDetails,
