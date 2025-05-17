@@ -53,7 +53,7 @@ export class Product {
     (productImage) => productImage.product, // how to find the inverse relationship
     { cascade: true }
   )
-  images?: ProductImage
+  images?: ProductImage[]
 
   @BeforeInsert()
   checkSlugInsert() {
