@@ -49,7 +49,10 @@ export class ProductsService {
           images: true
         }
       });
-      return allProducts;
+      return allProducts.map(product => ({
+        ...product,
+        images: product.images?.map((image) => image.url)
+      }));
     } catch (error) {
       this.handleDBExceptions(error);
     }
