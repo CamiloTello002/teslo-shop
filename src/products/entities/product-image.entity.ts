@@ -11,7 +11,8 @@ export class ProductImage {
 
   @ManyToOne(
     () => Product,
-    (product) => product.images
+    (product) => product.images,
+    { onDelete: 'CASCADE' } // if the referenced entity is deleted, delete this entity
   )
   product: Product;
 }
