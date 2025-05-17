@@ -99,20 +99,20 @@ export class ProductsService {
       await queryRunner.connect();
       await queryRunner.startTransaction();
       if (images) {
-        // remember that this is an operation that may fail
         await queryRunner.manager.delete(ProductImage, {
           product: { id }
         });
         product.images = images.map(image => this.productImageRepository.create({ url: image }))
-      } else {
-
       }
-      // and this one might fail too
       await queryRunner.manager.save(product);
+      await queryRunner.commitTransaction();
 
-      return product;
+      return this.findOnePlain(id);
     } catch (error) {
+      await queryRunner.rollbackTransaction();
       this.handleDBExceptions(error)
+    } finally {
+      await queryRunner.release();
     }
   }
 
