@@ -49,9 +49,9 @@ export class Product {
   tags: string[];
 
   @OneToMany(
-    () => ProductImage, // target entity
-    (productImage) => productImage.product, // how to find the inverse relationship
-    { cascade: true }
+    () => ProductImage,
+    (productImage) => productImage.product,
+    { cascade: true, eager: true }
   )
   images?: ProductImage[]
 
