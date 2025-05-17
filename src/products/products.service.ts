@@ -77,6 +77,14 @@ export class ProductsService {
     return product;
   }
 
+  async findOnePlain(term: string) {
+    const { images = [], ...productDetails } = await this.findOne(term);
+    return {
+      ...productDetails,
+      images: images.map(image => image.url)
+    };
+  }
+
   async update(id: string, updateProductDto: UpdateProductDto) {
     const product = await this.productRepository.preload({
       id: id,
