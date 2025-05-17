@@ -75,7 +75,8 @@ export class ProductsService {
   async update(id: string, updateProductDto: UpdateProductDto) {
     const product = await this.productRepository.preload({
       id: id,
-      ...updateProductDto
+      ...updateProductDto,
+      images: []
     })
     if (!product) throw new NotFoundException(`Product with id: ${id} not found`);
 
