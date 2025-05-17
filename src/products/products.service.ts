@@ -44,6 +44,9 @@ export class ProductsService {
         take: limit,
         order: {
           'title': 'asc'
+        },
+        relations: {
+          images: true
         }
       });
       return allProducts;
