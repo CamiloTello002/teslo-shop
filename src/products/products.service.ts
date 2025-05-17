@@ -18,7 +18,7 @@ export class ProductsService {
     private readonly productRepository: Repository<Product>,
 
     @InjectRepository(ProductImage)
-    private readonly productImage: Repository<ProductImage>
+    private readonly productImageRepository: Repository<ProductImage>
   ) { }
 
 
