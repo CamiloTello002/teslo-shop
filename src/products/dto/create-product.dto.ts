@@ -34,4 +34,11 @@ export class CreateProductDto {
 
   @IsIn(['men', 'women', 'kid', 'unisex'])
   gender: string;
+
+  // We can't change this. We're expecting the client to send an 
+  // array of urls, where each url is a string
+  @IsString({ each: true })
+  @IsArray()
+  @IsOptional()
+  images?: string[];
 }
