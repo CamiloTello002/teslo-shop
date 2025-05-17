@@ -19,7 +19,12 @@ export class ProductsService {
 
   async create(createProductDto: CreateProductDto) {
     try {
-      const product = this.productRepository.create(createProductDto);
+      // array of images are extracted (string[])
+      const { images = [], ...productDetails } = createProductDto;
+      const product = this.productRepository.create({
+        ...productDetails,
+        images: []
+      });
       await this.productRepository.save(product);
       return product;
     } catch (error) {
