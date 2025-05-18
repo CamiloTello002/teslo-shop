@@ -23,3 +23,8 @@ docker-compose up -d
 ```
 pnpm start:dev
 ```
+
+7. Ejecutar *seed*
+```
+GET http://localhost:3000/api/seed
+```
