@@ -2,6 +2,7 @@ import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors } 
 import { FileInterceptor } from '@nestjs/platform-express'
 import { fileFilter } from './helpers/file-filter.helper';
 import { diskStorage } from 'multer';
+import { fileNamer } from './helpers/file-namer.helper';
 
 @Controller('files')
 export class FilesController {
@@ -10,7 +11,8 @@ export class FilesController {
   @UseInterceptors(FileInterceptor('file', {
     fileFilter,
     storage: diskStorage({
-      destination: './static/products'
+      destination: './static/products',
+      filename: fileNamer
     })
   }))
   uploadProductImage(@UploadedFile() file: Express.Multer.File) {
