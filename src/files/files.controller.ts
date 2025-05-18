@@ -10,9 +10,11 @@ import { Response } from 'express';
 export class FilesController {
   constructor(private readonly filesService: FilesService) { }
   @Get('product/:imageName')
-  findProductImage(@Param('imageName') imageName: string) {
+  findProductImage(
+    @Res() response: Response,
+    @Param('imageName') imageName: string) {
     const path = this.filesService.getStaticProductImage(imageName)
-    return path;
+    return response.sendFile(path);
   }
 
   @Post('product')
