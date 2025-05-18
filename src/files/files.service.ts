@@ -11,6 +11,5 @@ export class FilesService {
     }
 
     return path;
-    return imageName;
   }
 }
