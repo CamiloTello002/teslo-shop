@@ -64,6 +64,7 @@ export class AuthService {
 
     return {
       ...user,
+      password: undefined,
       token: this.getJwtToken({ email: user.email })
     }
   }
