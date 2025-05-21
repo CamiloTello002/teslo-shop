@@ -30,4 +30,14 @@ export class AuthController {
   ) {
     return { user, userEmail, rawHeaders }
   }
+
+  @Get('private2')
+  @UseGuards(AuthGuard())
+  testingPrivateRoute2(
+    @GetUser() user: User,
+    //@GetUser('email') userEmail: string,
+    //@RawHeaders() rawHeaders: string[]
+  ) {
+    return { ok: true, user }
+  }
 }
