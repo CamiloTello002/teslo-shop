@@ -49,7 +49,6 @@ export class AuthController {
   testingPrivateRoute3(
     @GetUser() user: User,
   ) {
-    console.log(user)
     return { ok: true, user }
   }
 }
