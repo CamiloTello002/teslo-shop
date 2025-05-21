@@ -30,13 +30,13 @@ export class AuthService {
       });
 
       // this takes the user created on memory and saves it to database
-      await this.userRepository.save(user);
+      const savedUser = await this.userRepository.save(user);
 
       // return everything except the password
       return {
         ...user,
         password: undefined,
-        token: this.getJwtToken({ email: user.email })
+        token: this.getJwtToken({ id: savedUser.id })
       };
 
     } catch (error) {
@@ -51,7 +51,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true }
+      select: { id: true, password: true }
     })
 
     if (!user) {
@@ -65,7 +65,7 @@ export class AuthService {
     return {
       ...user,
       password: undefined,
-      token: this.getJwtToken({ email: user.email })
+      token: this.getJwtToken({ id: user.id })
     }
   }
 
