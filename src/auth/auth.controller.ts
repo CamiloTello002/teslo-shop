@@ -7,6 +7,8 @@ import { GetUser } from './decorators/get-user.decorator';
 import { User } from './entities/user.entity';
 import { RawHeaders } from './decorators/raw-headers.decorator';
 import { UserRoleGuard } from './guards/user-role.guard';
+import { RoleProtected } from './decorators/role-protected.decorator';
+import { ValidRoles } from './interfaces/valid-roles.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -33,9 +35,8 @@ export class AuthController {
   }
 
   @Get('private2')
-  // SetMetadata is not used that much. it's error prone in our authorization case
-  @SetMetadata('roles', ['admin', 'super-user'])
-  @UseGuards(AuthGuard(), UserRoleGuard)
+  @RoleProtected(ValidRoles.superUser, ValidRoles.admin) // this just sets the metadata
+  @UseGuards(AuthGuard(), UserRoleGuard) // and this performs authentication and authorization
   testingPrivateRoute2(
     @GetUser() user: User,
   ) {
