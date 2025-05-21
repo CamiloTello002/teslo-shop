@@ -9,6 +9,7 @@ import { RawHeaders } from './decorators/raw-headers.decorator';
 import { UserRoleGuard } from './guards/user-role.guard';
 import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from './interfaces/valid-roles.enum';
+import { Auth } from './decorators/auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -40,6 +41,15 @@ export class AuthController {
   testingPrivateRoute2(
     @GetUser() user: User,
   ) {
+    return { ok: true, user }
+  }
+
+  @Get('private3')
+  @Auth()
+  testingPrivateRoute3(
+    @GetUser() user: User,
+  ) {
+    console.log(user)
     return { ok: true, user }
   }
 }
