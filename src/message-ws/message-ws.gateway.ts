@@ -32,7 +32,9 @@ export class MessageWsGateway implements OnGatewayConnection, OnGatewayDisconnec
 
   @SubscribeMessage(Events.MessageFromClient)
   onMessageFromClient(client: Socket, payload: NewMessageDto) {
-    const clientId = client.id;
-    console.log({ clientId, payload })
+    client.emit(Events.MessageFromServer, {
+      fullName: 'Pepito Pérez',
+      message: payload.message || 'no message!!'
+    })
   }
 }
