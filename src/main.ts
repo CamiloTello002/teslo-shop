@@ -10,7 +10,6 @@ async function bootstrap() {
     .setTitle('Teslo API')
     .setDescription('RESTful API for Teslo shop application')
     .setVersion('1.0')
-    .addTag('clothes')
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, documentationConfig);
