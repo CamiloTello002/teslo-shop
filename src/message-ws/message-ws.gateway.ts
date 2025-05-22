@@ -44,5 +44,11 @@ export class MessageWsGateway implements OnGatewayConnection, OnGatewayDisconnec
       userId: client.id,
       message: payload.message || 'no message!!'
     });
+
+    // Emit to all clients including the client who sent the message
+    this.webSocketServer.emit(Events.MessageFromServer, {
+      userId: client.id,
+      message: payload.message || 'no message!!'
+    });
   }
 }
