@@ -3,13 +3,17 @@ import { MessageWsService } from './message-ws.service';
 import { Server, Socket } from 'socket.io';
 import { Events } from './enums/events.enum';
 import { NewMessageDto } from './dto/new-message.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @WebSocketGateway({ cors: true })
 export class MessageWsGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @WebSocketServer() webSocketServer: Server;
 
-  constructor(private readonly messageWsService: MessageWsService) { }
+  constructor(
+    private readonly messageWsService: MessageWsService,
+    private readonly jwtService: JwtService,
+  ) { }
 
   handleConnection(client: Socket) {
 
