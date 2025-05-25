@@ -4,6 +4,7 @@ import { Server, Socket } from 'socket.io';
 import { Events } from './enums/events.enum';
 import { NewMessageDto } from './dto/new-message.dto';
 import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
 
 @WebSocketGateway({ cors: true })
 export class MessageWsGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -15,9 +16,22 @@ export class MessageWsGateway implements OnGatewayConnection, OnGatewayDisconnec
     private readonly jwtService: JwtService,
   ) { }
 
-  handleConnection(client: Socket) {
+  async handleConnection(client: Socket) {
 
-    this.messageWsService.registerClient(client);
+    const token = client.handshake.headers['authentication'] as string;
+
+    let payload: JwtPayload;
+
+    try {
+      payload = this.jwtService.verify(token);
+      await this.messageWsService.registerClient(client, payload.id);
+    } catch (error) {
+
+      client.disconnect();
+
+      return;
+    }
+
 
     console.log('Connected clients: ', this.messageWsService.getConnectedClients())
 
