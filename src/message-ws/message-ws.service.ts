@@ -43,4 +43,8 @@ export class MessageWsService {
     return Object.keys(this.connectedClients);
   }
 
+  getUserFullNameBySocketId(socketId: string) {
+    return this.connectedClients[socketId].user.fullName;
+  }
+
 }
